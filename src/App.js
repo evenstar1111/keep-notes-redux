@@ -1,25 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { lazy, Suspense } from "react";
+import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
+
+import { Container } from "react-bootstrap";
+import { NavBar } from "./Components/NavBar";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+import { Loading } from "./Components/Loading";
+
+const TodosList = lazy(() => import("./features/todos/TodosList"));
+const CreateTodo = lazy(() => import("./features/todos/CreateTodo"));
+const SingleTodoPage = lazy(() => import("./features/todos/SingleTodoPage"));
+const EditTodo = lazy(() => import("./features/todos/EditTodo"));
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ErrorBoundary>
+      <Router>
+        <Suspense fallback={<Loading />}>
+          <Container className="p-0" fluid>
+            <NavBar />
+            <Switch>
+              <Route path="/" exact component={TodosList} />
+              <Route path="/create-todo" component={CreateTodo} />
+              <Route path="/todos/:todoId" component={SingleTodoPage} />
+              <Route path="/editTodo/:todoId" component={EditTodo} />
+              <Redirect to="/" />
+            </Switch>
+          </Container>
+        </Suspense>
+      </Router>
+    </ErrorBoundary>
   );
 }
 

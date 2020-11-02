@@ -10,6 +10,9 @@
 
 # production
 /build
+fonts
+config.js
+src/styles/scss
 
 # misc
 .DS_Store
