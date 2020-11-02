@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { api } from "../../app/apiRequests";
-import { apiEndpoint } from "../../config";
 
 const initialState = {
   todos: [],
