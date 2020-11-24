@@ -13,4 +13,4 @@ Simple application built with -
 
 #### DEPLOYMENT
 
-The app is deployed to Heroku. Visit the app from [**_here_**](https://redux-mern-todo.herokuapp.com/)
+The app is deployed to Heroku. Visit the app from [**_here_**](https://keep-notes-redux.herokuapp.com/)
