@@ -1,6 +1,5 @@
 ## MERN Stack Todo App with Redux Js
 
----
 
 Simple application built with -
 
