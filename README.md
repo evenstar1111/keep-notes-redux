@@ -2,7 +2,7 @@
 
 ---
 
-Simple application build with -
+Simple application built with -
 
 - React Js
 - Redux Js
