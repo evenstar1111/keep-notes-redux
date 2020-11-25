@@ -1,8 +1,7 @@
 ## MERN Stack Todo App with Redux Js
 
----
 
-Simple application build with -
+Simple application built with -
 
 - React Js
 - Redux Js
@@ -14,4 +13,4 @@ Simple application build with -
 
 #### DEPLOYMENT
 
-The app is deployed to Heroku. Visit the app from [**_here_**](https://redux-mern-todo.herokuapp.com/)
+The app is deployed to Heroku. Visit the app from [**_here_**](https://keep-notes-redux.herokuapp.com/)
