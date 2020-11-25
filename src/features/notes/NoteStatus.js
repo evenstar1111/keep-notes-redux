@@ -1,7 +1,7 @@
 import React from "react";
 import { Badge } from "react-bootstrap";
 
-export function TodoStatus({ status }) {
+export function NoteStatus({ status }) {
   const checkNew = /new|^new|new$/i.test(status);
   const checkOpened = /open|opened|^open|open$/i.test(status);
   const checkWorkingOn = /working|working on|pending|^working|working$/i.test(
@@ -22,7 +22,7 @@ export function TodoStatus({ status }) {
     : "light";
 
   return (
-    <Badge className="todoStatus" variant={variant}>
+    <Badge className="noteStatus" variant={variant}>
       <span>{status}</span>
     </Badge>
   );

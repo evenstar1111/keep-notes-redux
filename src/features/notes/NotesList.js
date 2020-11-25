@@ -1,20 +1,20 @@
 import React, { useEffect } from "react";
-import { fetchTodos, selectAllTodos, selectStatus } from "./todosSlice";
+import { fetchNotes, selectAllNotes, selectStatus } from "./notesSlice";
 import {
   selectTitleFilter,
   selectStatusFilter,
   selectSortMethod,
 } from "../filter/filterSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { TodoCard } from "./TodoCard";
+import { NoteCard } from "./NoteCard";
 
 import { TopCollapse } from "../../Components/TopCollapse";
 import { Container, CardColumns } from "react-bootstrap";
 import { Loading } from "../../Components/Loading";
 
-export default function TodosList() {
+export default function NotesList() {
   const dispatch = useDispatch();
-  const allTodos = useSelector(selectAllTodos);
+  const allNotes = useSelector(selectAllNotes);
   const status = useSelector(selectStatus);
 
   const titleFilter = useSelector(selectTitleFilter);
@@ -23,44 +23,44 @@ export default function TodosList() {
 
   useEffect(() => {
     if (status === "idle") {
-      dispatch(fetchTodos());
+      dispatch(fetchNotes());
     }
-  }, [dispatch, allTodos]);
+  }, [dispatch, allNotes]);
 
   let content;
 
   if (status === "loading") {
     content = <Loading />;
   } else if (status === "ready") {
-    let orderedTodos;
+    let orderedNotes;
     if (sortMethod === "asc") {
-      orderedTodos = allTodos
+      orderedNotes = allNotes
         .slice()
         .sort((a, b) => b.created.localeCompare(a.created));
     } else if (sortMethod === "desc") {
-      orderedTodos = allTodos
+      orderedNotes = allNotes
         .slice()
         .sort((a, b) => b.created.localeCompare(a.created))
         .reverse();
     }
 
-    let filteredTodos = orderedTodos
+    let filteredNotes = orderedNotes
       .filter(
-        (todo) =>
-          todo.title.toUpperCase().indexOf(titleFilter.toUpperCase()) > -1
+        (note) =>
+          note.title.toUpperCase().indexOf(titleFilter.toUpperCase()) > -1
       )
       .filter(
-        (todo) =>
-          todo.status.toUpperCase().indexOf(statusFilter.toUpperCase()) > -1
+        (note) =>
+          note.status.toUpperCase().indexOf(statusFilter.toUpperCase()) > -1
       );
 
-    content = filteredTodos.map((todo) => (
-      <TodoCard todo={todo} key={todo._id} />
+    content = filteredNotes.map((note) => (
+      <NoteCard note={note} key={note._id} />
     ));
   } else if (status === "failed") {
     content = (
       <div>
-        <span>Sorry, could not load todos</span>
+        <span>Sorry, could not load notes</span>
       </div>
     );
   }

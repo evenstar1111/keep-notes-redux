@@ -1,40 +1,40 @@
 import React, { useState, useEffect } from "react";
-import Button from "../../Components/OutlinedButton";
-import {
-  createTodo,
-  clearTodoCreation,
-  reqStatus,
-  createTodoError,
-} from "./todosSlice";
+import ErrorBoundary from "../../ErrorBoundary/ErrorBoundary";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  createNote,
+  clearNoteCreation,
+  reqStatus,
+  createNoteError,
+} from "./notesSlice";
+import Button from "../../Components/OutlinedButton";
 import { Form, FormGroup, FormLabel, Container } from "react-bootstrap";
 import { TextInput } from "../../Components/TextInput";
 import { TextArea } from "../../Components/TextArea";
 import { FormText } from "../../Components/FormText";
 
-export default function CreateTodo() {
+export default function CreateNote() {
   const dispatch = useDispatch();
   const status = useSelector(reqStatus);
-  const message = useSelector(createTodoError);
+  const message = useSelector(createNoteError);
   const [values, setValues] = useState({
     title: "",
     description: "",
-    label: "",
   });
 
   useEffect(() => {
-    dispatch(clearTodoCreation());
-  }, []);
+    dispatch(clearNoteCreation());
+  }, [dispatch]);
 
-  const { title, description, label } = values;
+  const { title, description } = values;
 
-  const canSave = title && description && label && true;
+  const canSave = title && description && true;
 
   const onFormSubmit = async (e) => {
     e.preventDefault();
     if (canSave) {
-      await dispatch(createTodo({ title, description, label }));
-      setValues({ title: "", description: "", label: "" });
+      await dispatch(createNote({ title, description }));
+      setValues({ title: "", description: "" });
     }
   };
 
@@ -47,73 +47,59 @@ export default function CreateTodo() {
       : status === "failed"
       ? message
       : status === "success"
-      ? "todo created successfuly"
+      ? "note created successfuly"
       : "";
 
   const hex =
     status === "loading"
-      ? "#a5a5a5"
+      ? "#727272"
       : status === "failed"
       ? "#e73f15"
-      : status === "success" && "#29da00";
+      : status === "success" && "#129e00";
 
   const createForm = (
     <Form onSubmit={onFormSubmit}>
       <FormGroup>
-        <FormLabel htmlFor="todo-title" srOnly>
-          Todo Title
+        <FormLabel htmlFor="note-title" srOnly>
+          Note Title
         </FormLabel>
         <TextInput
           value={title}
           onChange={(e) => onInputChange(e, "title")}
-          id="todo-title"
-          ph="todo title"
+          id="note-title"
+          ph="note title"
           size="lg"
           req={"true"}
           max="20"
         />
       </FormGroup>
       <FormGroup>
-        <FormLabel htmlFor="todo-description" srOnly>
-          Todo Description
+        <FormLabel htmlFor="note-description" srOnly>
+          Note Description
         </FormLabel>
         <TextArea
           value={description}
           onChange={(e) => onInputChange(e, "description")}
           size="lg"
-          id="todo-description"
-          ph="todo description"
+          id="note-description"
+          ph="note description"
           req={"true"}
           min="5"
         />
-      </FormGroup>
-      <FormGroup>
-        <FormLabel htmlFor="todo-label" srOnly>
-          Todo Label
-        </FormLabel>
-        <TextInput
-          value={label}
-          onChange={(e) => onInputChange(e, "label")}
-          id="todo-label"
-          ph="todo label"
-          size="lg"
-          req={"true"}
-          max="10"
-        />
-        <FormText id="create-todo-message" hex={hex} children={formText} />
+        <FormText id="create-note-message" hex={hex} children={formText} />
       </FormGroup>
       <Button size="lg" context="primary" type="submit" disabled={!canSave}>
-        Create Todo
+        Create Note
       </Button>
     </Form>
   );
 
   return (
-    <>
+    <ErrorBoundary>
       <Container className="formContainer">
-        <h1>Create Todo</h1>
+        <h1>Create Note</h1>
         {createForm}
       </Container>
-    </>
+    </ErrorBoundary>
   );
 }

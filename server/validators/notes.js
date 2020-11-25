@@ -1,4 +1,4 @@
-const { check } = require("express-validator")
+const { check } = require("express-validator");
 
 exports.validateCreateInput = [
   check("title")
@@ -16,13 +16,7 @@ exports.validateCreateInput = [
     .withMessage("description can not be empty")
     .isString()
     .withMessage("description must be a string"),
-
-  check("label")
-    .isString()
-    .withMessage("label must be a string")
-    .isLength({ max: 10 })
-    .withMessage("please note, max length for label is 10"),
-]
+];
 
 exports.validateEditInput = [
   check("_id").isString().withMessage("id must be  a string"),
@@ -43,15 +37,9 @@ exports.validateEditInput = [
     .isString()
     .withMessage("description must be a string"),
 
-  check("label")
-    .isString()
-    .withMessage("label must be a string")
-    .isLength({ max: 10 })
-    .withMessage("please note, max length for label is 10"),
-
   check("status")
     .isString()
     .withMessage("status must be a string")
     .isLength({ max: 10 })
     .withMessage("status must not be greater than 10 characters"),
-]
+];

@@ -9,10 +9,7 @@ export function NotFound() {
         <h1>Sorry!</h1>
         <h1>could not find the item</h1>
         <p>
-          go back to{" "}
-          <Link to="/">
-            Todos
-          </Link>
+          go back to <Link to="/">Notes</Link>
         </p>
       </Jumbotron>
     </Container>

@@ -9,7 +9,7 @@ const port = process.env.PORT || 10000;
 const nodeEnv = process.env.NODE_ENV;
 const buildPath = path.join(__dirname, "..", "build");
 
-const todosRouter = require("./routes/todos");
+const notesRouter = require("./routes/notes");
 
 const app = express();
 
@@ -32,7 +32,7 @@ if (nodeEnv === "production") {
   app.use(express.static(buildPath));
 }
 
-app.use("/api", todosRouter);
+app.use("/api", notesRouter);
 
 app.get("*", (req, res) => {
   res.end("resource could not be found");

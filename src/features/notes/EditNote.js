@@ -1,44 +1,44 @@
 import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  findNoteById,
+  editNote,
+  editNoteError,
+  editNoteStatus,
+  editNoteSuccess,
+  clearNoteEdition,
+} from "./notesSlice";
+import { useHistory } from "react-router-dom";
 import Button from "../../Components/OutlinedButton";
 import { TextInput } from "../../Components/TextInput";
 import { TextArea } from "../../Components/TextArea";
 import { FormText } from "../../Components/FormText";
 import { Form, FormGroup, FormLabel, Container } from "react-bootstrap";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  findTodoById,
-  editTodo,
-  editTodoError,
-  editTodoStatus,
-  editTodoSuccess,
-  clearTodoEdition,
-} from "./todosSlice";
-import { useHistory } from "react-router-dom";
 import { NotFound } from "./NotFound";
+import ErrorBoundary from "../../ErrorBoundary/ErrorBoundary";
 
-export default function EditTodo({ match }) {
+export default function EditNote({ match }) {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { todoId } = match.params;
-  const todo = useSelector((state) => findTodoById(state, todoId));
-  const actionStatus = useSelector(editTodoStatus);
-  const error = useSelector(editTodoError);
-  const success = useSelector(editTodoSuccess);
+  const { noteId } = match.params;
+  const note = useSelector((state) => findNoteById(state, noteId));
+  const actionStatus = useSelector(editNoteStatus);
+  const error = useSelector(editNoteError);
+  const success = useSelector(editNoteSuccess);
 
   const [inputs, setInputs] = useState({
-    title: todo && todo.title,
-    description: todo && todo.description,
-    label: todo && todo.label,
-    status: todo && todo.status,
+    title: note && note.title,
+    description: note && note.description,
+    status: note && note.status,
   });
 
-  const { title, description, label, status } = inputs;
+  const { title, description, status } = inputs;
 
-  const canSubmit = [title, description, label, status].every(Boolean);
+  const canSubmit = [title, description, status].every(Boolean);
 
   useEffect(() => {
-    dispatch(clearTodoEdition());
-  }, []);
+    dispatch(clearNoteEdition());
+  }, [dispatch]);
 
   const onInputChange = (e, name) =>
     setInputs({ ...inputs, [name]: e.target.value });
@@ -47,13 +47,12 @@ export default function EditTodo({ match }) {
     e.preventDefault();
     if (canSubmit) {
       const body = {
-        _id: todoId,
+        _id: noteId,
         title,
         description,
-        label,
         status,
       };
-      await dispatch(editTodo(body));
+      await dispatch(editNote(body));
     }
   };
 
@@ -78,44 +77,32 @@ export default function EditTodo({ match }) {
   const editForm = (
     <Form onSubmit={onFormSubmit}>
       <FormGroup>
-        <FormLabel htmlFor="edit-todo-title">Title</FormLabel>
+        <FormLabel htmlFor="edit-note-title">Title</FormLabel>
         <TextInput
-          id="edit-todo-title"
+          id="edit-note-title"
           size="lg"
           value={title}
           onChange={(e) => onInputChange(e, "title")}
-          ph="edit todo title"
+          ph="edit note title"
           req="true"
           max="20"
         />
       </FormGroup>
       <FormGroup>
-        <FormLabel htmlFor="edit-todo-description">Description</FormLabel>
+        <FormLabel htmlFor="edit-note-description">Description</FormLabel>
         <TextArea
-          id="edit-todo-description"
+          id="edit-note-description"
           size="lg"
           value={description}
           onChange={(e) => onInputChange(e, "description")}
-          ph="todo description"
+          ph="note description"
           req="true"
         />
       </FormGroup>
       <FormGroup>
-        <FormLabel htmlFor="edit-todo-label">Label</FormLabel>
-        <TextInput
-          id="edit-todo-label"
-          size="lg"
-          value={label}
-          onChange={(e) => onInputChange(e, "label")}
-          ph="edit todo label"
-          req="true"
-          max="10"
-        />
-      </FormGroup>
-      <FormGroup>
-        <FormLabel htmlFor="edit-todo-status">Status</FormLabel>
+        <FormLabel htmlFor="edit-note-status">Status</FormLabel>
         <select
-          id="edit-todo-status"
+          id="edit-note-status"
           className="custom-select custom-select-lg"
           value={status}
           onChange={(e) => onInputChange(e, "status")}
@@ -134,18 +121,25 @@ export default function EditTodo({ match }) {
   );
 
   return (
-    <Container className="formContainer">
-      {todo ? (
-        <>
-          <div className="prevPage">
-            <button onClick={() => history.goBack()}></button>
-          </div>
-          <h1>Edit Todo</h1>
-          {editForm}
-        </>
-      ) : (
-        <NotFound />
-      )}
-    </Container>
+    <ErrorBoundary>
+      <Container className="formContainer">
+        {note ? (
+          <>
+            <div className="prevPage">
+              <button
+                title="go back to previous page"
+                onClick={() => history.goBack()}
+              >
+                <span>&larr;</span>
+              </button>
+            </div>
+            <h1>Edit Note</h1>
+            {editForm}
+          </>
+        ) : (
+          <NotFound />
+        )}
+      </Container>
+    </ErrorBoundary>
   );
 }

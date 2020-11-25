@@ -11,29 +11,27 @@ import {
 } from "react-router-dom";
 import { Loading } from "./Components/Loading";
 
-const TodosList = lazy(() => import("./features/todos/TodosList"));
-const CreateTodo = lazy(() => import("./features/todos/CreateTodo"));
-const SingleTodoPage = lazy(() => import("./features/todos/SingleTodoPage"));
-const EditTodo = lazy(() => import("./features/todos/EditTodo"));
+const NotesList = lazy(() => import("./features/notes/NotesList"));
+const CreateNote = lazy(() => import("./features/notes/CreateNote"));
+const SingleNotePage = lazy(() => import("./features/notes/SingleNotePage"));
+const EditNote = lazy(() => import("./features/notes/EditNote"));
 
 function App() {
   return (
-    <ErrorBoundary>
-      <Router>
-        <Suspense fallback={<Loading />}>
-          <Container className="p-0" fluid>
-            <NavBar />
-            <Switch>
-              <Route path="/" exact component={TodosList} />
-              <Route path="/create-todo" component={CreateTodo} />
-              <Route path="/todos/:todoId" component={SingleTodoPage} />
-              <Route path="/editTodo/:todoId" component={EditTodo} />
-              <Redirect to="/" />
-            </Switch>
-          </Container>
-        </Suspense>
-      </Router>
-    </ErrorBoundary>
+    <Router>
+      <Suspense fallback={<Loading />}>
+        <Container className="p-0" fluid>
+          <NavBar />
+          <Switch>
+            <Route path="/" exact component={NotesList} />
+            <Route path="/create-note" component={CreateNote} />
+            <Route path="/notes/:noteId" component={SingleNotePage} />
+            <Route path="/editNote/:noteId" component={EditNote} />
+            <Redirect to="/" />
+          </Switch>
+        </Container>
+      </Suspense>
+    </Router>
   );
 }
 

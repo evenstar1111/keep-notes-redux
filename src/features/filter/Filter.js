@@ -56,10 +56,10 @@ export function Filter() {
         </select>
       </section>
       <section>
-        <FormLabel htmlFor="filter-todo-by-title" children="filter by title" />
+        <FormLabel htmlFor="filter-note-by-title" children="filter by title" />
         <TextInput
-          id="filter-todo-by-title"
-          ph="filter todos by title"
+          id="filter-note-by-title"
+          ph="filter notes by title"
           value={titleFilter}
           onChange={(e) => titleChangeAction(e)}
         />

@@ -1,43 +1,43 @@
 import React from "react";
 import Button from "../../Components/OutlinedButton";
 import { useHistory } from "react-router-dom";
-import { DeleteTodo } from "./DeleteTodo";
+import { DeleteNote } from "./DeleteNote";
 import { TimeAgo } from "./TimeAgo";
-import { TodoStatus } from "./TodoStatus";
+import { NoteStatus } from "./NoteStatus";
 import { Card } from "react-bootstrap";
 
-export function TodoCard({ todo }) {
+export function NoteCard({ note }) {
   const history = useHistory();
 
   return (
     <Card>
       <Card.Body>
         <Card.Title>
-          <h5 className="mb-0">{todo.title}</h5>
+          <h5 className="mb-0">{note.title}</h5>
         </Card.Title>
         <Card.Text>
-          <TodoStatus status={todo.status} />
+          <NoteStatus status={note.status} />
         </Card.Text>
         <Card.Text>
-          <TodoDesc desc={todo.description} />
+          <NoteDesc desc={note.description} />
         </Card.Text>
-        <TimeAgo timeStamp={todo.created} />
+        <TimeAgo timeStamp={note.created} />
         <section className="btnContainer">
           <Button
             size="sm"
             context="info"
-            onClick={() => history.push(`/todos/${todo._id}`)}
+            onClick={() => history.push(`/notes/${note._id}`)}
           >
             VIEW
           </Button>
-          <DeleteTodo todoId={todo._id} />
+          <DeleteNote noteId={note._id} />
         </section>
       </Card.Body>
     </Card>
   );
 }
 
-function TodoDesc({ desc }) {
+function NoteDesc({ desc }) {
   const len = desc.length;
 
   const textContent =

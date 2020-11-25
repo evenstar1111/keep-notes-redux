@@ -4,12 +4,12 @@ export function FormText(props) {
   const { id, cls, hex, children } = props;
 
   return (
-    <small
+    <span
       id={id ? id : ""}
       className={`form-text ${cls}`}
       style={{ color: `${hex}` }}
     >
       {children}
-    </small>
+    </span>
   );
 }

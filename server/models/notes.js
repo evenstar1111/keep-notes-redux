@@ -1,6 +1,6 @@
-const { Schema, model } = require("mongoose")
+const { Schema, model } = require("mongoose");
 
-const todosSchema = new Schema(
+const notesSchema = new Schema(
   {
     _id: {
       type: String,
@@ -49,6 +49,6 @@ const todosSchema = new Schema(
   {
     bufferCommands: false,
   }
-)
+);
 
-module.exports = model("Todo", todosSchema)
+module.exports = model("Notes", notesSchema);

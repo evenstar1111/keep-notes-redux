@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import Button from "../../Components/OutlinedButton";
 import { Modal } from "react-bootstrap";
-import { deleteTodoAction } from "./todosSlice";
+import { deleteNoteAction } from "./notesSlice";
 import { useDispatch } from "react-redux";
 
-export function DeleteTodo({ todoId, size, onClick }) {
+export function DeleteNote({ noteId, size, onClick }) {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
 
@@ -12,7 +12,7 @@ export function DeleteTodo({ todoId, size, onClick }) {
   const handleClose = () => setShow(false);
 
   const deleteOnClick = () => {
-    dispatch(deleteTodoAction({ id: todoId }));
+    dispatch(deleteNoteAction({ id: noteId }));
   };
 
   return (
@@ -21,7 +21,7 @@ export function DeleteTodo({ todoId, size, onClick }) {
         DELETE
       </Button>
       <Modal
-        id="deleteTodoModal"
+        id="deleteNoteModal"
         size="sm"
         show={show}
         onHide={handleClose}
