@@ -10,12 +10,12 @@ import { NoteCard } from "./NoteCard";
 import { Loading } from "../../Components/Loading";
 import { NotFound } from "../../Components/NotFound";
 import { TopCollapse } from "../../Components/TopCollapse";
-import { Container, CardColumns } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 function ErrorMessage() {
   return (
-    <NotFound>
-      <h1>oops! something went wrong.</h1>
+    <NotFound className="mt-5">
+      <h1 className="pb-3">oops! something went wrong.</h1>
       <p>
         please try{" "}
         <a href="/" style={{ textDecoration: "underline" }}>
@@ -73,14 +73,15 @@ export default function NotesList() {
       <NoteCard note={note} key={note._id} />
     ));
   } else if (status === "failed") {
-    content = <ErrorMessage />;
+    content = "";
   }
 
   return (
     <>
       <Container fluid className="p-0">
         <TopCollapse />
-        <div className="pt-5 px-3">{content}</div>
+        {status === "failed" && <ErrorMessage />}
+        <div className="cardContainer pt-5 px-3 pb-4">{content}</div>
       </Container>
     </>
   );

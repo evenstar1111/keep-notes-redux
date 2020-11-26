@@ -18,7 +18,7 @@ export function NoteCard({ note }) {
         <Card.Text>
           <NoteStatus status={note.status} />
         </Card.Text>
-        <Card.Text>
+        <Card.Text className="noteDesc">
           <NoteDesc desc={note.description} />
         </Card.Text>
         <TimeAgo timeStamp={note.created} />

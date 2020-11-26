@@ -15,8 +15,6 @@ export default function SingleNotePage({ match }) {
 
   const history = useHistory();
 
-  console.log(noteId);
-
   const note = useSelector((state) => findNoteById(state, noteId));
 
   let content;
