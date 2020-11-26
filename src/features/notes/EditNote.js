@@ -8,17 +8,16 @@ import {
   editNoteSuccess,
   clearNoteEdition,
 } from "./notesSlice";
-import { useHistory } from "react-router-dom";
+import { PrevPage } from "../../Components/PrevPage";
+import { NotFound } from "./NotFound";
+import ErrorBoundary from "../../ErrorBoundary/ErrorBoundary";
 import Button from "../../Components/OutlinedButton";
 import { TextInput } from "../../Components/TextInput";
 import { TextArea } from "../../Components/TextArea";
 import { FormText } from "../../Components/FormText";
 import { Form, FormGroup, FormLabel, Container } from "react-bootstrap";
-import { NotFound } from "./NotFound";
-import ErrorBoundary from "../../ErrorBoundary/ErrorBoundary";
 
 export default function EditNote({ match }) {
-  const history = useHistory();
   const dispatch = useDispatch();
   const { noteId } = match.params;
   const note = useSelector((state) => findNoteById(state, noteId));
@@ -125,14 +124,15 @@ export default function EditNote({ match }) {
       <Container className="formContainer">
         {note ? (
           <>
-            <div className="prevPage">
+            {/* <div className="prevPage">
               <button
                 title="go back to previous page"
                 onClick={() => history.goBack()}
               >
                 <span>&larr;</span>
               </button>
-            </div>
+            </div> */}
+            <PrevPage />
             <h1>Edit Note</h1>
             {editForm}
           </>
