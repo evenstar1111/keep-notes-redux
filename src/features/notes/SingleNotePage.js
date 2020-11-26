@@ -5,7 +5,7 @@ import { findNoteById } from "./notesSlice";
 import { TimeAgo } from "./TimeAgo";
 import { DeleteNote } from "./DeleteNote";
 import { NoteStatus } from "./NoteStatus";
-import { NotFound } from "./NotFound";
+import { NotFound } from "../../Components/NotFound";
 import { PrevPage } from "../../Components/PrevPage";
 import Button from "../../Components/OutlinedButton";
 import { Container } from "react-bootstrap";

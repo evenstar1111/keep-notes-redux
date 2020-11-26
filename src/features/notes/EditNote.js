@@ -9,7 +9,7 @@ import {
   clearNoteEdition,
 } from "./notesSlice";
 import { PrevPage } from "../../Components/PrevPage";
-import { NotFound } from "./NotFound";
+import { NotFound } from "../../Components/NotFound";
 import ErrorBoundary from "../../ErrorBoundary/ErrorBoundary";
 import Button from "../../Components/OutlinedButton";
 import { TextInput } from "../../Components/TextInput";

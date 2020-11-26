@@ -1,16 +1,31 @@
 import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { fetchNotes, selectAllNotes, selectStatus } from "./notesSlice";
 import {
   selectTitleFilter,
   selectStatusFilter,
   selectSortMethod,
 } from "../filter/filterSlice";
-import { useSelector, useDispatch } from "react-redux";
 import { NoteCard } from "./NoteCard";
-
+import { Loading } from "../../Components/Loading";
+import { NotFound } from "../../Components/NotFound";
 import { TopCollapse } from "../../Components/TopCollapse";
 import { Container, CardColumns } from "react-bootstrap";
-import { Loading } from "../../Components/Loading";
+
+function ErrorMessage() {
+  return (
+    <NotFound>
+      <h1>oops! something went wrong.</h1>
+      <p>
+        please try{" "}
+        <a href="/" style={{ textDecoration: "underline" }}>
+          refreshing
+        </a>{" "}
+        the page page after sometime.
+      </p>
+    </NotFound>
+  );
+}
 
 export default function NotesList() {
   const dispatch = useDispatch();
@@ -58,18 +73,14 @@ export default function NotesList() {
       <NoteCard note={note} key={note._id} />
     ));
   } else if (status === "failed") {
-    content = (
-      <div>
-        <span>Sorry, could not load notes</span>
-      </div>
-    );
+    content = <ErrorMessage />;
   }
 
   return (
     <>
       <Container fluid className="p-0">
         <TopCollapse />
-        <CardColumns className="pt-5 px-3">{content}</CardColumns>
+        <div className="pt-5 px-3">{content}</div>
       </Container>
     </>
   );
