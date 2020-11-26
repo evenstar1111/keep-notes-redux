@@ -1,13 +1,14 @@
 import React from "react";
-import Button from "../../Components/OutlinedButton";
-import { findNoteById } from "./notesSlice";
 import { useSelector } from "react-redux";
-import { Container } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
+import { findNoteById } from "./notesSlice";
 import { TimeAgo } from "./TimeAgo";
 import { DeleteNote } from "./DeleteNote";
 import { NoteStatus } from "./NoteStatus";
 import { NotFound } from "./NotFound";
+import { PrevPage } from "../../Components/PrevPage";
+import Button from "../../Components/OutlinedButton";
+import { Container } from "react-bootstrap";
 
 export default function SingleNotePage({ match }) {
   const { noteId } = match.params;
@@ -23,11 +24,7 @@ export default function SingleNotePage({ match }) {
   if (note) {
     content = (
       <>
-        <div className="prevPage" title="go to previous page">
-          <button type="button" onClick={() => history.goBack()}>
-            <span>&larr;</span>
-          </button>
-        </div>
+        <PrevPage />
         <h1>{note.title}</h1>
         <p className="spNoteStatus">
           <NoteStatus status={note.status} />
