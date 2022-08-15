@@ -20,10 +20,8 @@ export function Filter() {
   const sortMethod = useSelector(selectSortMethod);
 
   const titleChangeAction = (e) => dispatch(titleFilterChanged(e.target.value));
-  const statusChangeAction = (e) =>
-    dispatch(statusFilterChanged(e.target.value));
-  const sortMethodChangeAction = (e) =>
-    dispatch(sortMethodChanged(e.target.value));
+  const statusChangeAction = (e) => dispatch(statusFilterChanged(e.target.value));
+  const sortMethodChangeAction = (e) => dispatch(sortMethodChanged(e.target.value));
 
   return (
     <div className={styles.filterBar}>
