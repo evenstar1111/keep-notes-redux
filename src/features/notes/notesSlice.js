@@ -19,13 +19,8 @@ const initialState = {
 };
 
 export const fetchNotes = createAsyncThunk("notes/fetchNotes", async () => {
-  if (!getLocal("notes")) {
-    const res = await api.get("/api/notes");
-    setLocal("notes", JSON.stringify(res));
-    return res;
-  } else {
-    return getLocal("notes");
-  }
+  const res = await api.get("/api/notes");
+  return res;
 });
 
 export const createNote = createAsyncThunk("notes/createNote", async (body) => {
