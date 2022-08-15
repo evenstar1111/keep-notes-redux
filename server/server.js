@@ -29,7 +29,10 @@ app.use(compression());
 app.use(bodyParser.json({ extends: false }));
 
 if (nodeEnv === "production") {
-  app.use(express.static(buildPath));
+  app.use(express.static( buildPath ));
+  app.get(/^\/(?!api)/, (req, res) => {
+    res.sendFile('index.html', {root: path.join(__dirname, "..", "build")});
+  });
 }
 
 app.use("/api", notesRouter);
